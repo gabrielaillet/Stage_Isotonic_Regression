@@ -27,7 +27,7 @@ pi_qwe_list_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
 graph_position_vector_weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list_tree,
                                                                                                distance_0, norme=2)
 graph = graph_position_vector_weight_vector[0]
-
+"""sdsdsd"""
 position_vector = taking_only_coordinates(graph_position_vector_weight_vector[1])
 
 weight_vector = taking_only_coordinates((graph_position_vector_weight_vector[2]))
