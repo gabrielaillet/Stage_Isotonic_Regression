@@ -1,20 +1,27 @@
 import unittest
 
+from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
+    from_pi_qew_tree_to_basic_graph, taking_only_coordinates
 
-from PQ_Tree_Preparation_Isotonique import *
-
+P_NODE = 'P_node'
+Q_NODE = 'Q_node'
+LEAF = 'leaf'
+AVERAGE_DISTANCE = "average_dist"
+NEIGHBORS = "neighbors"
+POINTS = "points"
+KEY = "key"
+TYPE = "type"
+REPRESENTS = "represents"
 
 
 class Test_Q_Tree_To_Graph_Trivial(unittest.TestCase):
 
     def setUp(self) -> None:
-
         self.distanceTwo = [[0, 2, 2, 2, 2],
                             [2, 0, 2, 2, 2],
                             [2, 2, 0, 2, 2],
                             [2, 2, 2, 0, 2],
                             [2, 2, 2, 2, 0]]
-
 
         self.Q_list = [Q_NODE, [0], [1], [2]]
 
@@ -46,8 +53,6 @@ class Test_Q_Tree_To_Graph_Trivial(unittest.TestCase):
             q_graph[NEIGHBORS][1][REPRESENTS][1][POINTS] == points_represent_expected_on_second_neighbors_second)
 
 
-
-
 class Test_P_Tree_To_Graph_Trivial(unittest.TestCase):
     def setUp(self) -> None:
         self.distanceTwo = [[0, 2, 2, 2, 2],
@@ -66,37 +71,33 @@ class Test_P_Tree_To_Graph_Trivial(unittest.TestCase):
         point_expected = [0, 1, 2]
         self.assertTrue(p_graph[TYPE] == type_expected and p_graph[POINTS] == point_expected)
 
+
 class Test_Distance_Vector_on_trivial_example(unittest.TestCase):
     def setUp(self) -> None:
         self.distanceTwo = [[0, 2, 2, 2, 2],
-                                [2, 0, 2, 2, 2],
-                                [2, 2, 0, 2, 2],
-                                [2, 2, 2, 0, 2],
-                                [2, 2, 2, 2, 0]]
+                            [2, 0, 2, 2, 2],
+                            [2, 2, 0, 2, 2],
+                            [2, 2, 2, 0, 2],
+                            [2, 2, 2, 2, 0]]
 
         self.pi_qwe_list = [Q_NODE, [P_NODE, [0], [1], [4]], [2], [3]]
-
-
-
-
 
     def test_position_Vectors_is_true_L1_distanceTwo(self):
         pi_qwe_list = self.pi_qwe_list
         distance = self.distanceTwo
-        expected = [0, 0, 0, 2, 0, 0, 2, 2, 2]
+        expected = [2, 2, 2, 2]
 
         value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list, distance)[1]
         value = taking_only_coordinates(value)
-
 
         self.assertTrue(value == expected)
 
     def test_position_vectors_is_true_l2_distance_two(self):
         pi_qwe_list = self.pi_qwe_list
         distance = self.distanceTwo
-        expected = [0, 0, 0, 2, 0, 0, 2, 2, 2]
+        expected = [2, 2, 2, 2]
 
-        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list, distance, norme = 2)[1]
+        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list, distance, norme=2)[1]
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -104,9 +105,9 @@ class Test_Distance_Vector_on_trivial_example(unittest.TestCase):
     def test_position_vectors_is_true_l_inf_distance_two(self):
         complex_list = self.pi_qwe_list
         distance = self.distanceTwo
-        expected = [0, 0, 0, 2, 0, 0, 2, 2, 2]
+        expected = [2, 2, 2, 2]
 
-        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance,norme = 'inf')[1]
+        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance, norme='inf')[1]
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -122,12 +123,10 @@ class Test_Distance_Vector_on_a_more_complex_distance(unittest.TestCase):
 
         self.pi_qwe_list = [Q_NODE, [P_NODE, [0], [1], [4]], [2], [3]]
 
-
-
     def test_position_Vectors_is_true_L1(self):
         complex_list = self.pi_qwe_list
         distance = self.distance
-        expected = [0, 0, 0, 2, 0, 0, 2, 3, 3]
+        expected = [2, 2, 3, 3]
 
         value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance)[1]
         value = taking_only_coordinates(value)
@@ -137,9 +136,9 @@ class Test_Distance_Vector_on_a_more_complex_distance(unittest.TestCase):
     def test_position_Vectors_is_true_L2(self):
         complex_list = self.pi_qwe_list
         distance = self.distance
-        expected = [0, 0, 0, 2, 0, 0, 2, 3, 5]
+        expected = [2, 2, 3, 5]
 
-        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance,norme =2)[1]
+        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance, norme=2)[1]
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -147,9 +146,9 @@ class Test_Distance_Vector_on_a_more_complex_distance(unittest.TestCase):
     def test_position_Vectors_is_true_L_inf_distanceComplex(self):
         complex_list = self.pi_qwe_list
         distance = self.distance
-        expected = [0, 0, 0, 2, 0, 0, 2, 3, 6]
+        expected = [2, 2, 3, 6]
 
-        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance,norme = 'inf')[1]
+        value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance, norme='inf')[1]
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -168,11 +167,9 @@ class Test_Weight_Vector(unittest.TestCase):
     def test_weight_Vectors_are_the_same_and_are_true(self):
         complex_list = self.pi_qwe_list
         distance = self.distance
-        expected = [1, 1, 1, 3, 1, 1, 3, 1, 3]
+        expected = [3, 3, 1, 3]
 
         value = from_pi_qew_tree_to_basic_graph_with_position_and_weight(complex_list, distance)[2]
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
-
-

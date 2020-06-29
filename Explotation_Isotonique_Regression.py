@@ -1,6 +1,14 @@
 __author__ = 'Gabriel'
 
-from PQ_Tree_To_Graph_Transformation import *
+P_NODE = 'P_node'
+Q_NODE = 'Q_node'
+LEAF = 'leaf'
+AVERAGE_DISTANCE = "average_dist"
+NEIGHBORS = "neighbors"
+POINTS = "points"
+KEY = "key"
+TYPE = "type"
+REPRESENTS = "represents"
 
 
 def study_isotonic_regression_l2(distance, graph, exploited_points):
@@ -19,9 +27,9 @@ def study_isotonic_regression_l2(distance, graph, exploited_points):
                     robinson_dissimilarity[n1][n2] = value_to_change
                     robinson_dissimilarity[n2][n1] = value_to_change
             robinson_dissimilarity = study_isotonic_regression_l2(robinson_dissimilarity, current_graph[NEIGHBORS][0],
-                                                          exploited_points)
+                                                                  exploited_points)
             robinson_dissimilarity = study_isotonic_regression_l2(robinson_dissimilarity, current_graph[NEIGHBORS][1],
-                                                          exploited_points)
+                                                                  exploited_points)
 
     if current_graph[TYPE] == P_NODE:
         for points1 in current_graph[POINTS]:
