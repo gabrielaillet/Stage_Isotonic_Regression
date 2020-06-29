@@ -149,12 +149,11 @@ KEY = "key"
 TYPE = "type"
 REPRESENTS = "represents"
 
-
 """ ####################################################################################### """
 
 
-def from_pi_qew_tree_to_basic_graph(pi_qew_list, distance, current_point = None):
-    if current_point == None:
+def from_pi_qew_tree_to_basic_graph(pi_qew_list, distance, current_point=None):
+    if current_point is None:
         current_point = 0
 
     if pi_qew_list[0] == P_NODE:
@@ -165,13 +164,13 @@ def from_pi_qew_tree_to_basic_graph(pi_qew_list, distance, current_point = None)
     return {KEY: current_point, AVERAGE_DISTANCE: (0, 1, 0, 0, 0), NEIGHBORS: [], POINTS: pi_qew_list, TYPE: LEAF}
 
 
-def from_pi_node_to_basic_graph(pi_node, distance, current_point = None):
-    if current_point == None:
+def from_pi_node_to_basic_graph(pi_node, distance, current_point=None):
+    if current_point is None:
         current_point = 0
     the_sons = []
     the_points = []
     for tree_node in pi_node[1:]:
-        graph_node = from_pi_qew_tree_to_basic_graph(tree_node, distance,current_point)
+        graph_node = from_pi_qew_tree_to_basic_graph(tree_node, distance, current_point)
         the_sons.append(graph_node)
         the_points.extend(graph_node[POINTS])
     current_point += 1
@@ -199,13 +198,13 @@ def average_distance(node_list, distance):
     return distance_sum, distance_number, distance_max, distance_min, median(ensemble)
 
 
-def from_qew_node_to_basic_graph(qew_node, distance, current_point = None):
-    if current_point == None:
+def from_qew_node_to_basic_graph(qew_node, distance, current_point=None):
+    if current_point is None:
         current_point = 0
     basic_nodes = []
     all_points = []
     for node in qew_node[1:]:
-        basic_nodes.append(from_pi_qew_tree_to_basic_graph(node, distance,current_point))
+        basic_nodes.append(from_pi_qew_tree_to_basic_graph(node, distance, current_point))
         all_points.extend(basic_nodes[-1][POINTS])
     current_nodes = basic_nodes
     height = 0
@@ -247,7 +246,7 @@ def recursive_from_basic_graph_to_adjacency_list(basic_graph, adjacency_list):
 """#######################################################################################"""
 
 
-def calculate_position_vector(p, node, position,current_point):
+def calculate_position_vector(p, node, position, current_point):
     new_position = position
     if p == 1:
         median_to_use = node[AVERAGE_DISTANCE][4]
@@ -267,21 +266,24 @@ def calculate_position_vector(p, node, position,current_point):
 """#######################################################################################"""
 
 
-def from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_list, distance, norme=1,current_point = None):
+def from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_list, distance, norme=1, current_point=None):
     if current_point is None:
         current_point = 0
     position = []
     weight = []
     if pi_qew_list[0] == P_NODE:
-        return from_pi_node_to_basic_graph_with_position_and_weight(pi_qew_list, distance, position, weight, norme,current_point)
+        return from_pi_node_to_basic_graph_with_position_and_weight(pi_qew_list, distance, position, weight, norme,
+                                                                    current_point)
     if pi_qew_list[0] == Q_NODE:
-        return from_qew_node_to_basic_graph_with_position_and_weight(pi_qew_list, distance, position, weight, norme,current_point)
+        return from_qew_node_to_basic_graph_with_position_and_weight(pi_qew_list, distance, position, weight, norme,
+                                                                     current_point)
     current_point += 1
     return {KEY: current_point, AVERAGE_DISTANCE: (0, 1, 0, 0, 0), NEIGHBORS: [], POINTS: pi_qew_list,
             TYPE: LEAF}, position, weight
 
 
-def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, position=None, weight=None, norme=1,current_point = None):
+def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, position=None, weight=None, norme=1,
+                                                         current_point=None):
     if current_point is None:
         current_point = 0
     if weight is None:
@@ -292,7 +294,8 @@ def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, posi
     the_points = []
     for tree_node in pi_node[1:]:
         graph_node_with_position_and_weight = from_pi_qew_tree_to_basic_graph_with_position_and_weight(tree_node,
-                                                                                                       distance, norme,current_point)
+                                                                                                       distance, norme,
+                                                                                                       current_point)
         graph_node = graph_node_with_position_and_weight[0]
         position += graph_node_with_position_and_weight[1]
         weight += graph_node_with_position_and_weight[2]
@@ -301,12 +304,13 @@ def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, posi
     current_point += 1
     pi_node = {KEY: current_point, AVERAGE_DISTANCE: average_distance(the_sons, distance),
                NEIGHBORS: the_sons, POINTS: the_points, TYPE: P_NODE}
-    position = calculate_position_vector(norme, pi_node, position,current_point)
+    position = calculate_position_vector(norme, pi_node, position, current_point)
     weight += [(current_point, pi_node[AVERAGE_DISTANCE][1])]
     return pi_node, position, weight
 
 
-def from_qew_node_to_basic_graph_with_position_and_weight(qew_node, distance, position=None, weight=None, norme=1,current_point = None):
+def from_qew_node_to_basic_graph_with_position_and_weight(qew_node, distance, position=None, weight=None, norme=1,
+                                                          current_point=None):
     if current_point is None:
         current_point = 0
     if weight is None:
@@ -317,7 +321,8 @@ def from_qew_node_to_basic_graph_with_position_and_weight(qew_node, distance, po
     all_points = []
     for node in qew_node[1:]:
         basic_nodes_with_position_and_weight = from_pi_qew_tree_to_basic_graph_with_position_and_weight(node, distance,
-                                                                                                        norme,current_point)
+                                                                                                        norme,
+                                                                                                        current_point)
         basic_nodes.append(basic_nodes_with_position_and_weight[0])
         position += basic_nodes_with_position_and_weight[1]
         weight += basic_nodes_with_position_and_weight[2]
@@ -336,7 +341,7 @@ def from_qew_node_to_basic_graph_with_position_and_weight(qew_node, distance, po
                             TYPE: Q_NODE, REPRESENTS: [basic_nodes[i], basic_nodes[k]],
                             AVERAGE_DISTANCE: average_distance([basic_nodes[i], basic_nodes[k]], distance)}
             new_nodes.append(the_new_node)
-            position = calculate_position_vector(norme, the_new_node, position,current_point)
+            position = calculate_position_vector(norme, the_new_node, position, current_point)
             weight += [(current_point, the_new_node[AVERAGE_DISTANCE][1])]
         current_nodes = new_nodes
 
