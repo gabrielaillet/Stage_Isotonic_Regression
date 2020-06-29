@@ -1,7 +1,7 @@
 __author__ = 'pascal and Gabriel'
 
 from statistics import median
-
+from Global_variable import *
 """
 The aim of this module is, given a dissimilarity "distance", to provide tools to transform a given PQ-tree
     (given as a 'PQ-list' "pi_qew_list") into a graph on which ISOTONIC REGRESSION will give the best Robinson
@@ -139,15 +139,6 @@ Contains the functions :
         and ALL Global variables
 """
 
-P_NODE = 'P_node'
-Q_NODE = 'Q_node'
-LEAF = 'leaf'
-AVERAGE_DISTANCE = "average_dist"
-NEIGHBORS = "neighbors"
-POINTS = "points"
-KEY = "key"
-TYPE = "type"
-REPRESENTS = "represents"
 
 """ ####################################################################################### """
 

@@ -1,15 +1,6 @@
 __author__ = 'Gabriel'
 
-P_NODE = 'P_node'
-Q_NODE = 'Q_node'
-LEAF = 'leaf'
-AVERAGE_DISTANCE = "average_dist"
-NEIGHBORS = "neighbors"
-POINTS = "points"
-KEY = "key"
-TYPE = "type"
-REPRESENTS = "represents"
-
+from Global_variable import *
 
 def creat_position_vector_for_l1(pq_graph, position_vector=None):
     if position_vector is None:

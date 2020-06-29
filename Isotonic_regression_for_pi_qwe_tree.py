@@ -7,16 +7,8 @@ from Explotation_Isotonique_Regression import study_isotonic_regression_l2
 from PQ_Tree_Preparation_Isotonique import creat_weight_vector, creat_position_vector_for_l2
 from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     taking_only_coordinates
+from Global_variable import *
 
-P_NODE = 'P_node'
-Q_NODE = 'Q_node'
-LEAF = 'leaf'
-AVERAGE_DISTANCE = "average_dist"
-NEIGHBORS = "neighbors"
-POINTS = "points"
-KEY = "key"
-TYPE = "type"
-REPRESENTS = "represents"
 
 
 # #############################################################################

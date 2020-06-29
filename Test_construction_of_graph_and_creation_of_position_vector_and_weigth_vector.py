@@ -3,15 +3,7 @@ import unittest
 from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     from_pi_qew_tree_to_basic_graph, taking_only_coordinates
 
-P_NODE = 'P_node'
-Q_NODE = 'Q_node'
-LEAF = 'leaf'
-AVERAGE_DISTANCE = "average_dist"
-NEIGHBORS = "neighbors"
-POINTS = "points"
-KEY = "key"
-TYPE = "type"
-REPRESENTS = "represents"
+from Global_variable import *
 
 
 class Test_Q_Tree_To_Graph_Trivial(unittest.TestCase):
