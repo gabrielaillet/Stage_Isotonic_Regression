@@ -1,6 +1,6 @@
 __author__ = 'Gabriel'
 
-from Global_variable import *
+from Constant import *
 
 def creat_position_vector_for_l1(pq_graph, position_vector=None):
     if position_vector is None:

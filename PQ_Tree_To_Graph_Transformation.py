@@ -1,7 +1,7 @@
 __author__ = 'pascal and Gabriel'
 
 from statistics import median
-from Global_variable import *
+from Constant import *
 """
 The aim of this module is, given a dissimilarity "distance", to provide tools to transform a given PQ-tree
     (given as a 'PQ-list' "pi_qew_list") into a graph on which ISOTONIC REGRESSION will give the best Robinson
@@ -195,8 +195,10 @@ def from_qew_node_to_basic_graph(qew_node, distance, current_point=None):
     basic_nodes = []
     all_points = []
     for node in qew_node[1:]:
-        basic_nodes.append(from_pi_qew_tree_to_basic_graph(node, distance, current_point))
+        node = from_pi_qew_tree_to_basic_graph(node, distance, current_point)
+        basic_nodes.append(node)
         all_points.extend(basic_nodes[-1][POINTS])
+        current_point = node[0][KEY]
     current_nodes = basic_nodes
     height = 0
     while len(current_nodes) > 1:
@@ -262,13 +264,16 @@ def from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_list, distan
         current_point = 0
     position = []
     weight = []
+
     if pi_qew_list[0] == P_NODE:
         return from_pi_node_to_basic_graph_with_position_and_weight(pi_qew_list, distance, position, weight, norme,
-                                                                    current_point)
+                                                                    current_point = current_point)
     if pi_qew_list[0] == Q_NODE:
         return from_qew_node_to_basic_graph_with_position_and_weight(pi_qew_list, distance, position, weight, norme,
-                                                                     current_point)
+                                                                     current_point = current_point)
     current_point += 1
+    position += [(current_point, 0)]
+    weight += [(current_point, 1)]
     return {KEY: current_point, AVERAGE_DISTANCE: (0, 1, 0, 0, 0), NEIGHBORS: [], POINTS: pi_qew_list,
             TYPE: LEAF}, position, weight
 
@@ -286,12 +291,13 @@ def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, posi
     for tree_node in pi_node[1:]:
         graph_node_with_position_and_weight = from_pi_qew_tree_to_basic_graph_with_position_and_weight(tree_node,
                                                                                                        distance, norme,
-                                                                                                       current_point)
+                                                                                                       current_point = current_point)
         graph_node = graph_node_with_position_and_weight[0]
         position += graph_node_with_position_and_weight[1]
         weight += graph_node_with_position_and_weight[2]
         the_sons.append(graph_node)
         the_points.extend(graph_node[POINTS])
+        current_point += 1
     current_point += 1
     pi_node = {KEY: current_point, AVERAGE_DISTANCE: average_distance(the_sons, distance),
                NEIGHBORS: the_sons, POINTS: the_points, TYPE: P_NODE}
@@ -302,6 +308,7 @@ def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, posi
 
 def from_qew_node_to_basic_graph_with_position_and_weight(qew_node, distance, position=None, weight=None, norme=1,
                                                           current_point=None):
+
     if current_point is None:
         current_point = 0
     if weight is None:
@@ -313,11 +320,13 @@ def from_qew_node_to_basic_graph_with_position_and_weight(qew_node, distance, po
     for node in qew_node[1:]:
         basic_nodes_with_position_and_weight = from_pi_qew_tree_to_basic_graph_with_position_and_weight(node, distance,
                                                                                                         norme,
-                                                                                                        current_point)
+                                                                                                        current_point = current_point)
         basic_nodes.append(basic_nodes_with_position_and_weight[0])
         position += basic_nodes_with_position_and_weight[1]
         weight += basic_nodes_with_position_and_weight[2]
         all_points.extend(basic_nodes[-1][POINTS])
+        current_point = basic_nodes_with_position_and_weight[0][KEY]
+
     current_nodes = basic_nodes
     height = 0
     while len(current_nodes) > 1:

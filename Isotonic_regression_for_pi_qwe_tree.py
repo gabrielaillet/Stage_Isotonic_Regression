@@ -7,7 +7,7 @@ from Explotation_Isotonique_Regression import study_isotonic_regression_l2
 from PQ_Tree_Preparation_Isotonique import creat_weight_vector, creat_position_vector_for_l2
 from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     taking_only_coordinates
-from Global_variable import *
+from Constant import *
 
 
 
@@ -28,10 +28,11 @@ def make_isotonic_regression_for_l2(matrix_of_distance, pi_qwe_tree, plot_result
         position_vector = creat_position_vector_for_l2(graph)
         weight_vector = creat_weight_vector(graph)
 
-    ir = IsotonicRegression()
+    ir = IsotonicRegression( out_of_bounds = "clip")
     first_order = np.arange(len(position_vector))
     result_of_isotonic_regression = ir.fit_transform(first_order, taking_only_coordinates(position_vector),
-                                                     sample_weight=taking_only_coordinates(weight_vector))
+                                                     sample_weight=taking_only_coordinates(weight_vector),
+                                                    )
 
     # Make a list of tuple with NB of the vertices and the associate value the result
 
@@ -57,10 +58,10 @@ def make_isotonic_regression_for_l2(matrix_of_distance, pi_qwe_tree, plot_result
                                         list_tuple_with_nb_of_vertices_and_result_of_isotonic_regression)
 
 
-distance = [[0, 1, 1, 3, 3],
+distance = [[0, 1, 1, 1, 3],
             [1, 0, 1, 1, 3],
             [1, 1, 0, 1, 2],
-            [3, 1, 1, 0, 3],
+            [1, 1, 1, 0, 3],
             [3, 3, 2, 3, 0]]
 
 pi_qwe_list_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
