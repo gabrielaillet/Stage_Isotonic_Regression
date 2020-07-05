@@ -1,10 +1,11 @@
 __author__ = 'Gabriel'
-from Constant import *
-from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight
+from Program.Constant import *
+from Program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight
 
 class facade():
     def __init__(self,distance,pi_qwe_list,norme):
-        self.graph,self.vector_pos,self.vector_weight = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,distance,norme)
+        graph, self.position_vector, self.weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list, distance, norme)
+        self.graph = Graph(graph)
 
 
 class Graph():
@@ -38,13 +39,3 @@ class Graph():
 
 
 
-distance = [[0, 1, 1, 4, 3],
-            [1 , 0, 1, 4, 3],
-            [1, 1, 0, 4, 3],
-            [4, 4, 4, 0, 3],
-            [3,3, 3, 3, 0]]
-
-pi_qwe_list_tree = [Q_NODE, [P_NODE, [0],[1],[2]], [3], [4]]
-
-a = facade(distance,pi_qwe_list_tree,1)
-print(a.graph.neighbors[0].key)

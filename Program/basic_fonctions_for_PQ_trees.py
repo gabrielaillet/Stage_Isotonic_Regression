@@ -73,8 +73,8 @@ NB_UN = 'number_of_one'
 REPRESENTATIVE = 'representative'
 
 
-from Diverse_Functions import put_off_singletons
-from Diverse_Functions import list_fusion
+from Program.Diverse_Functions import put_off_singletons
+from Program.Diverse_Functions import list_fusion
 
 import math
 

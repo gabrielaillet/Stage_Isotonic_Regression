@@ -66,7 +66,7 @@ To visualize a PQ-tree, use functions in this module.
 """
 
 
-from basic_fonctions_for_PQ_trees import update_father_and_leaf_sets
+from Program.basic_fonctions_for_PQ_trees import update_father_and_leaf_sets
 
 
 PORQ = 'Pnode_or_Qnode'  # the possible values are:

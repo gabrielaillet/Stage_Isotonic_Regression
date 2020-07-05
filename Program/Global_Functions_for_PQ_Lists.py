@@ -8,8 +8,8 @@ sort_pi_qew_list(pi_qew_list):
 
 """
 
-from Diverse_Functions import reverse_end_of_list
-from Diverse_Functions import sort_the_end_by_values
+from Program.Diverse_Functions import reverse_end_of_list
+from Program.Diverse_Functions import sort_the_end_by_values
 
 
 P_NODE = 'P_node'

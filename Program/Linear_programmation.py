@@ -1,8 +1,8 @@
 __author__ = 'Gabriel'
 
-from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
+from Program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     taking_only_coordinates
-from Constant import *
+from Program.Constant import *
 
 from scipy.optimize import linprog
 import numpy as np

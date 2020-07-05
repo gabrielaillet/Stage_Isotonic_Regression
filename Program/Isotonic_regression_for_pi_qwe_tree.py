@@ -3,11 +3,11 @@ __author__ = 'Gabriel'
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.isotonic import IsotonicRegression
-from Explotation_Isotonique_Regression import study_isotonic_regression_l2
-from PQ_Tree_Preparation_Isotonique import creat_weight_vector, creat_position_vector_for_l2
-from PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
+from Program.Explotation_Isotonique_Regression import study_isotonic_regression_l2
+from Program.PQ_Tree_Preparation_Isotonique import creat_weight_vector, creat_position_vector_for_l2
+from Program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     taking_only_coordinates
-from Constant import *
+from Program.Constant import *
 
 
 
