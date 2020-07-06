@@ -127,11 +127,10 @@ def modification_of_the_matrix_of_distance(vector_to_change_value, distance_to_u
 
 
 distance_0 = [[0, 1, 1, 3, 3],
-                          [1, 0, 1, 1, 3],
-                          [1, 1, 0, 1, 3],
-                          [3, 1, 1, 0, 3],
-                          [3, 3, 3, 3, 0]]
-
+              [1, 0, 1, 1, 3],
+              [1, 1, 0, 1, 3],
+              [3, 1, 1, 0, 3],
+              [3, 3, 3, 3, 0]]
 
 distance_0_bis = [[0, 1.00, 1.00, 2.99, 2.99],
                   [1.00, 0, 1.00, 1.00, 2.99],
@@ -139,30 +138,6 @@ distance_0_bis = [[0, 1.00, 1.00, 2.99, 2.99],
                   [2.99, 1.00, 1.00, 0, 2.99],
                   [2.99, 2.99, 2.99, 2.99, 0]]
 
-distance_1 = [[0, 1, 1, 3, 3],
-              [1, 0, 1, 1, 3],
-              [1, 1, 0, 1, 2],
-              [3, 1, 1, 0, 3],
-              [3, 3, 2, 3, 0]]
-
-distance_1_bis = [[0, 1.00, 1.00, 2.99, 2.99],
-                  [1.00, 0, 1.00, 1.00, 2.99],
-                  [1.00, 1.00, 0, 1.00, 2.99],
-                  [2.99, 1.00, 1.00, 0, 2.99],
-                  [2.99, 2.99, 2.99, 2.99, 0]]
-
-
-distance_2 = [[0, 1, 2, 3, 3],
-                          [1, 0, 1, 1, 3],
-                          [2, 1, 0, 1, 3],
-                          [3, 1, 1, 0, 3],
-                          [3, 3, 3, 3, 0]]
-
-distance_2_bis = [[0, 1.49, 1.49, 2.99, 2.99],
-                  [1.49, 0, 1.00, 1.00, 2.99],
-                  [1.49, 1.00, 0, 1.00, 2.99],
-                  [2.99, 1.00, 1.00, 0, 2.99],
-                  [2.99, 2.99, 2.99, 2.99, 0]]
 
 pi_qew_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
 
@@ -170,5 +145,4 @@ graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_tree, di
 A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qew_tree, distance_2)
 res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
 
-print(modification_of_the_matrix_of_distance(res_no_bounds['x'],distance_0,graph))
-
+print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance_0, graph))
