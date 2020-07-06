@@ -297,7 +297,10 @@ def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, posi
         weight += graph_node_with_position_and_weight[2]
         the_sons.append(graph_node)
         the_points.extend(graph_node[POINTS])
-        current_point += 1
+        if graph_node[TYPE] != LEAF:
+            current_point += graph_node[KEY]
+        else:
+            current_point += 1
     current_point += 1
     pi_node = {KEY: current_point, AVERAGE_DISTANCE: average_distance(the_sons, distance),
                NEIGHBORS: the_sons, POINTS: the_points, TYPE: P_NODE}

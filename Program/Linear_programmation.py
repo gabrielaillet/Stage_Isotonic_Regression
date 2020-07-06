@@ -2,16 +2,17 @@ __author__ = 'Gabriel'
 
 from Program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     taking_only_coordinates
-from Program.Constant import *
+from Program.Constant import TYPE, P_NODE, Q_NODE, LEAF, KEY, NEIGHBORS, REPRESENTS, POINTS
 
 from scipy.optimize import linprog
 import numpy as np
 
 
-def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qwe_list, distance):
-    graph, position_vector, weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,
-                                                                                                     distance, norme=1)
-    edge_list = creat_tuple_of_edges(graph)
+def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qwe_list, distance_matrix):
+    graph_to_use, position_vector, weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,
+                                                                                                        distance_matrix,
+                                                                                                            norme=1)
+    edge_list = creat_tuple_of_edges(graph_to_use)
     position_vector = taking_only_coordinates(position_vector)
     weight_vector = taking_only_coordinates(weight_vector)
 
@@ -29,14 +30,14 @@ def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qwe_lis
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][1] - 1] = 1
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][0] - 1] = -1
 
-    return matrix, creat_vector_c_for_l_1(weight_vector), creat_vector_inequality(position_vector, len(weight_vector))
+    return matrix, creat_vector_c_for_l_1(weight_vector), creat_vector_inequality(position_vector, len(edge_list))
 
 
-def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_list, distance, norme_to_choose):
-    graph, position_vector, weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,
-                                                                                                     distance
-                                                                                                     , norme='inf')
-    edge_list = creat_tuple_of_edges(graph)
+def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_list, distance_to_use):
+    graph_to_use, position_vector, weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,
+                                                                                                        distance_to_use,
+                                                                                                            norme='inf')
+    edge_list = creat_tuple_of_edges(graph_to_use)
     position_vector = taking_only_coordinates(position_vector)
     weight_vector = taking_only_coordinates(weight_vector)
     len_of_vector = len(position_vector)
@@ -56,16 +57,16 @@ def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_l
     return matrix, creat_vector_c_for_l_inf(len_of_vector), creat_vector_inequality(position_vector, len(weight_vector))
 
 
-def creat_tuple_of_edges(graph, current_list=None):
-    if current_list == None:
+def creat_tuple_of_edges(graph_to_use, current_list=None):
+    if current_list is None:
         current_list = []
-    if graph[TYPE] == LEAF:
+    if graph_to_use[TYPE] == LEAF:
         return current_list
-    for neighbors in graph[NEIGHBORS]:
-        if [(graph[KEY], neighbors[KEY])] not in current_list:
-            if [(neighbors[KEY], graph[KEY])] not in current_list:
-                current_list += [(graph[KEY], neighbors[KEY])]
-    for neighbors in graph[NEIGHBORS]:
+    for neighbors in graph_to_use[NEIGHBORS]:
+        if [(graph_to_use[KEY], neighbors[KEY])] not in current_list:
+            if [(neighbors[KEY], graph_to_use[KEY])] not in current_list:
+                current_list += [(graph_to_use[KEY], neighbors[KEY])]
+    for neighbors in graph_to_use[NEIGHBORS]:
         creat_tuple_of_edges(neighbors, current_list)
     return current_list
 
@@ -91,8 +92,8 @@ def creat_vector_inequality(position_vector, len_weight_vector):
     return vector_inequality
 
 
-def modification_of_the_matrix_of_distance(vector_to_change_value, distance, current_graph):
-    robinson_dissimilarity = distance
+def modification_of_the_matrix_of_distance(vector_to_change_value, distance_to_use, current_graph):
+    robinson_dissimilarity = distance_to_use
     current_key = current_graph[KEY] - 1
     if current_graph[TYPE] == LEAF:
         return robinson_dissimilarity
@@ -125,16 +126,49 @@ def modification_of_the_matrix_of_distance(vector_to_change_value, distance, cur
     return robinson_dissimilarity
 
 
-distance = [[0, 1, 1, 4, 3],
-            [1, 0, 1, 4, 3],
-            [1, 1, 0, 4, 3],
-            [4, 4, 4, 0, 3],
-            [3, 3, 3, 3, 0]]
+distance_0 = [[0, 1, 1, 3, 3],
+                          [1, 0, 1, 1, 3],
+                          [1, 1, 0, 1, 3],
+                          [3, 1, 1, 0, 3],
+                          [3, 3, 3, 3, 0]]
 
-pi_qwe_list_tree = [Q_NODE, [P_NODE, [0], [1], [2]], [3], [4]]
-graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list_tree, distance)[0]
 
-A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_list_tree, distance, 1)
-print(A_ineq)
+distance_0_bis = [[0, 1.00, 1.00, 2.99, 2.99],
+                  [1.00, 0, 1.00, 1.00, 2.99],
+                  [1.00, 1.00, 0, 1.00, 2.99],
+                  [2.99, 1.00, 1.00, 0, 2.99],
+                  [2.99, 2.99, 2.99, 2.99, 0]]
+
+distance_1 = [[0, 1, 1, 3, 3],
+              [1, 0, 1, 1, 3],
+              [1, 1, 0, 1, 2],
+              [3, 1, 1, 0, 3],
+              [3, 3, 2, 3, 0]]
+
+distance_1_bis = [[0, 1.00, 1.00, 2.99, 2.99],
+                  [1.00, 0, 1.00, 1.00, 2.99],
+                  [1.00, 1.00, 0, 1.00, 2.99],
+                  [2.99, 1.00, 1.00, 0, 2.99],
+                  [2.99, 2.99, 2.99, 2.99, 0]]
+
+
+distance_2 = [[0, 1, 2, 3, 3],
+                          [1, 0, 1, 1, 3],
+                          [2, 1, 0, 1, 3],
+                          [3, 1, 1, 0, 3],
+                          [3, 3, 3, 3, 0]]
+
+distance_2_bis = [[0, 1.49, 1.49, 2.99, 2.99],
+                  [1.49, 0, 1.00, 1.00, 2.99],
+                  [1.49, 1.00, 0, 1.00, 2.99],
+                  [2.99, 1.00, 1.00, 0, 2.99],
+                  [2.99, 2.99, 2.99, 2.99, 0]]
+
+pi_qew_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
+
+graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_tree, distance_0)[0]
+A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qew_tree, distance_2)
 res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
-print(res_no_bounds)
+
+print(modification_of_the_matrix_of_distance(res_no_bounds['x'],distance_0,graph))
+
