@@ -142,7 +142,7 @@ distance_0_bis = [[0, 1.00, 1.00, 2.99, 2.99],
 pi_qew_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
 
 graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_tree, distance_0)[0]
-A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qew_tree, distance_2)
+A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qew_tree, distance_0)
 res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
 
 print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance_0, graph))
