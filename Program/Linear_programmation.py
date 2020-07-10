@@ -54,7 +54,7 @@ def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_l
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][1] - 1] = 1
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][0] - 1] = -1
 
-    return matrix, creat_vector_c_for_l_inf(len_of_vector), creat_vector_inequality(position_vector, len(weight_vector))
+    return matrix, creat_vector_c_for_l_inf(len_of_vector), creat_vector_inequality(position_vector, len(edge_list))
 
 
 def creat_tuple_of_edges(graph_to_use, current_list=None):
@@ -138,11 +138,16 @@ distance_0_bis = [[0, 1.00, 1.00, 2.99, 2.99],
                   [2.99, 1.00, 1.00, 0, 2.99],
                   [2.99, 2.99, 2.99, 2.99, 0]]
 
+distance_0_bis_inf =  [[0, 1.0000000000643283, 1.0000000000643283, 3.0000000000352576, 3.0000000000534484],
+                       [1.0000000000643283, 0, 0.9999999999610419, 1.0000000000643294, 3.0000000000534484],
+                       [1.0000000000643283, 0.9999999999610419, 0, 1.0000000000643294, 3.0000000000534484],
+                       [3.0000000000352576, 1.0000000000643294, 1.0000000000643294, 0, 3.0000000000534484],
+                       [3.0000000000534484, 3.0000000000534484, 3.0000000000534484, 3.0000000000534484, 0]]
 
-pi_qew_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
 
-graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qew_tree, distance_0)[0]
-A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qew_tree, distance_0)
-res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
+def make_isotonic(list,distance):
 
-print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance_0, graph))
+    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance)[0]
+    A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(list, distance)
+    res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
+    print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph))

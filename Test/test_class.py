@@ -1,7 +1,7 @@
 import unittest
 
 from Program.PQ_Tree_To_Graph_Transformation import taking_only_coordinates
-from Program.facade import facade
+from Program.data import Data
 
 
 class Test_Q_Tree_To_Graph_Trivial(unittest.TestCase):
@@ -18,7 +18,7 @@ class Test_Q_Tree_To_Graph_Trivial(unittest.TestCase):
     def testQ_graph(self):
         list_to_use = self.Q_list
         distance = self.distanceTwo
-        q_graph = facade(distance, list_to_use, 1).graph
+        q_graph = Data(distance, list_to_use, 1).graph
         type_expected = 'Q_node'
         points_represent_expected_on_root_first = [0]
         points_represent_expected_on_root_second = [2]
@@ -56,7 +56,7 @@ class Test_P_Tree_To_Graph_Trivial(unittest.TestCase):
     def testP_graph(self):
         list_to_use = self.P_list
         distance = self.distanceTwo
-        p_graph = facade(distance, list_to_use, 1).graph
+        p_graph = Data(distance, list_to_use, 1).graph
         type_expected = 'P_node'
         point_expected = [0, 1, 2]
         self.assertTrue(p_graph.type == type_expected and p_graph.points == point_expected)
@@ -77,7 +77,7 @@ class Test_Distance_Vector_on_trivial_example(unittest.TestCase):
         distance = self.distanceTwo
         expected = [0, 0, 0, 2, 0, 0, 2, 2, 2]
 
-        value = facade(distance, pi_qwe_list, 1).position_vector
+        value = Data(distance, pi_qwe_list, 1).position_vector
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -87,7 +87,7 @@ class Test_Distance_Vector_on_trivial_example(unittest.TestCase):
         distance = self.distanceTwo
         expected = [0, 0, 0, 2, 0, 0, 2, 2, 2]
 
-        value = facade(distance, pi_qwe_list, 2).position_vector
+        value = Data(distance, pi_qwe_list, 2).position_vector
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -97,7 +97,7 @@ class Test_Distance_Vector_on_trivial_example(unittest.TestCase):
         distance = self.distanceTwo
         expected = [0, 0, 0, 2, 0, 0, 2, 2, 2]
 
-        value = facade(distance, pi_qwe_list, 'inf').position_vector
+        value = Data(distance, pi_qwe_list, 'inf').position_vector
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -118,7 +118,7 @@ class Test_Distance_Vector_on_a_more_complex_distance(unittest.TestCase):
         distance = self.distance
         expected = [0, 0, 0, 2, 0, 0, 2, 3, 3]
 
-        value = facade(distance, the_more_complex_pi_qwe_list, 1).position_vector
+        value = Data(distance, the_more_complex_pi_qwe_list, 1).position_vector
         value = taking_only_coordinates(value)
         self.assertTrue(value == expected)
 
@@ -127,7 +127,7 @@ class Test_Distance_Vector_on_a_more_complex_distance(unittest.TestCase):
         distance = self.distance
         expected = [0, 0, 0, 2, 0, 0, 2, 3, 5]
 
-        value = facade(distance, the_more_complex_pi_qwe_list, 2).position_vector
+        value = Data(distance, the_more_complex_pi_qwe_list, 2).position_vector
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -137,7 +137,7 @@ class Test_Distance_Vector_on_a_more_complex_distance(unittest.TestCase):
         distance = self.distance
         expected = [0, 0, 0, 2, 0, 0, 2, 3, 6]
 
-        value = facade(distance, the_more_complex_pi_qwe_list, 'inf').position_vector
+        value = Data(distance, the_more_complex_pi_qwe_list, 'inf').position_vector
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
@@ -158,7 +158,7 @@ class Test_Weight_Vector(unittest.TestCase):
         distance = self.distance
         expected = [1, 1, 1, 3, 1, 1, 3, 1, 3]
 
-        value = facade(distance, complex_list, 1).weight_vector
+        value = Data(distance, complex_list, 1).weight_vector
         value = taking_only_coordinates(value)
 
         self.assertTrue(value == expected)
