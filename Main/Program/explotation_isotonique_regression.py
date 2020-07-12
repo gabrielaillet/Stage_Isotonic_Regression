@@ -1,6 +1,6 @@
 __author__ = 'Gabriel'
 
-from Program.Constant import *
+from Main.foreign_program.Constant import *
 
 
 def study_isotonic_regression_l2(distance, graph, exploited_points):

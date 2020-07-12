@@ -1,6 +1,6 @@
 __author__ = 'Gabriel'
-from Program.Constant import *
-from Program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight
+from Main.foreign_program.Constant import *
+from Main.foreign_program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight
 
 class Data():
     def __init__(self,distance,pi_qwe_list,norme):

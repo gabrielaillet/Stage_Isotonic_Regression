@@ -1,7 +1,7 @@
 __author__ = 'pascal and Gabriel'
 
 from statistics import median
-from Program.Constant import *
+from Main.foreign_program.Constant import *
 """
 The aim of this module is, given a dissimilarity "distance", to provide tools to transform a given PQ-tree
     (given as a 'PQ-list' "pi_qew_list") into a graph on which ISOTONIC REGRESSION will give the best Robinson
@@ -298,7 +298,7 @@ def from_pi_node_to_basic_graph_with_position_and_weight(pi_node, distance, posi
         the_sons.append(graph_node)
         the_points.extend(graph_node[POINTS])
         if graph_node[TYPE] != LEAF:
-            current_point += graph_node[KEY]
+            current_point = graph_node[KEY]
         else:
             current_point += 1
     current_point += 1

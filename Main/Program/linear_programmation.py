@@ -1,10 +1,11 @@
 __author__ = 'Gabriel'
 
-from Program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
+from Main.foreign_program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
     taking_only_coordinates
-from Program.Constant import TYPE, P_NODE, Q_NODE, LEAF, KEY, NEIGHBORS, REPRESENTS, POINTS
+from Main.foreign_program.Constant import TYPE, P_NODE, Q_NODE, LEAF, KEY, NEIGHBORS, REPRESENTS, POINTS
 
 from scipy.optimize import linprog
+from math import ceil,floor
 import numpy as np
 
 
@@ -54,7 +55,7 @@ def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_l
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][1] - 1] = 1
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][0] - 1] = -1
 
-    return matrix, creat_vector_c_for_l_inf(len_of_vector), creat_vector_inequality(position_vector, len(edge_list))
+    return matrix, creat_vector_c_for_l_inf(len(weight_vector)), creat_vector_inequality(position_vector, len(edge_list))
 
 
 def creat_tuple_of_edges(graph_to_use, current_list=None):
@@ -126,28 +127,53 @@ def modification_of_the_matrix_of_distance(vector_to_change_value, distance_to_u
     return robinson_dissimilarity
 
 
-distance_0 = [[0, 1, 1, 3, 3],
-              [1, 0, 1, 1, 3],
-              [1, 1, 0, 1, 3],
-              [3, 1, 1, 0, 3],
-              [3, 3, 3, 3, 0]]
-
-distance_0_bis = [[0, 1.00, 1.00, 2.99, 2.99],
-                  [1.00, 0, 1.00, 1.00, 2.99],
-                  [1.00, 1.00, 0, 1.00, 2.99],
-                  [2.99, 1.00, 1.00, 0, 2.99],
-                  [2.99, 2.99, 2.99, 2.99, 0]]
-
-distance_0_bis_inf =  [[0, 1.0000000000643283, 1.0000000000643283, 3.0000000000352576, 3.0000000000534484],
-                       [1.0000000000643283, 0, 0.9999999999610419, 1.0000000000643294, 3.0000000000534484],
-                       [1.0000000000643283, 0.9999999999610419, 0, 1.0000000000643294, 3.0000000000534484],
-                       [3.0000000000352576, 1.0000000000643294, 1.0000000000643294, 0, 3.0000000000534484],
-                       [3.0000000000534484, 3.0000000000534484, 3.0000000000534484, 3.0000000000534484, 0]]
 
 
-def make_isotonic(list,distance):
+def make_isotonic_for_l_1(list, distance, print_matrix = True):
 
-    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance)[0]
+    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance,1)[0]
+    A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(list, distance)
+    res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
+    if print_matrix == True:
+        print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph))
+    else:
+        modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph)
+
+
+def make_isotonic_for_l_inf(list, distance, print_matrix = True):
+
+    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance,'inf')[0]
     A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(list, distance)
     res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
-    print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph))
+    if print_matrix == True:
+        print(modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph))
+    else:
+        modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph)
+
+def make_round(value):
+    ceiling = ceil(value) - value
+    if ceiling <= 0.5:
+        return  ceil(value)
+    else:
+        return  floor(value)
+
+def make_round_on_matrix(matrix):
+
+    for row_index in range (len(matrix)):
+        for value_index in range (len(matrix[row_index])):
+            matrix[row_index][value_index] = make_round(matrix[row_index][value_index])
+
+def change_format_of_pi_qwe_list(list1):
+    list_to_return = list1
+    for index in range(len(list_to_return)):
+        if  (type(list_to_return[index]) == list):
+            list_to_return[index] = change_format_of_pi_qwe_list(list_to_return[index])
+        if  (type(list_to_return[index]) != str) and (type(list_to_return[index]) != list):
+            list_to_return[index] = [list_to_return[index]]
+    return list_to_return
+
+def print_matrix(matrix):
+    print('\n')
+    for row in matrix:
+        print(row)
+    print('\n')

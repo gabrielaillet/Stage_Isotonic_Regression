@@ -73,8 +73,8 @@ NB_UN = 'number_of_one'
 REPRESENTATIVE = 'representative'
 
 
-from Program.Diverse_Functions import put_off_singletons
-from Program.Diverse_Functions import list_fusion
+from Main.foreign_program.Diverse_Functions import put_off_singletons
+from Main.foreign_program.Diverse_Functions import list_fusion
 
 import math
 
@@ -225,6 +225,7 @@ def update_father_and_leaf_sets(tree):
     if tree is not None:
         if tree[PORQ] != LEAF:
             tree[LEAF_SET] = []
+
             current_node = tree[CADET]
             while current_node is not None:
                 current_node[PERE] = tree

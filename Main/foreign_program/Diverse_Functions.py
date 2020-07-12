@@ -177,7 +177,7 @@ def distance_between_matrices(matrix_1, matrix_2):
     maximum, summation, euclid = 0, 0, 0
     if len(matrix_1) > 0:
         for i in range(len(matrix_1)):
-            for j in range(len(matrix_1[0])):
+            for j in range(len(matrix_1[i])):
                 difference = abs(matrix_1[i][j] - matrix_2[i][j])
                 summation += difference
                 euclid += difference ** 2

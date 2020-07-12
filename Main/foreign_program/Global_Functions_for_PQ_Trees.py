@@ -58,19 +58,19 @@ To visualize a PQ-tree, use functions in module "Type_Conversions_for_PQ-Tree"
 
 import random
 
-from booth_lueker import booth_and_lueker
-from booth_lueker import update_tree
+from Main.foreign_program.booth_lueker import booth_and_lueker
+from Main.foreign_program.booth_lueker import update_tree
 
-from basic_fonctions_for_PQ_trees import characteristic_subset_set_of
-from basic_fonctions_for_PQ_trees import minimal_subset_set_of
-from basic_fonctions_for_PQ_trees import number_of_permutations_represented_by
+from Main.foreign_program.basic_fonctions_for_PQ_trees import characteristic_subset_set_of
+from Main.foreign_program.basic_fonctions_for_PQ_trees import minimal_subset_set_of
+from Main.foreign_program.basic_fonctions_for_PQ_trees import number_of_permutations_represented_by
 
-from Diverse_Functions import logarithm
-from Diverse_Functions import distance_between_matrices
+from Main.foreign_program.Diverse_Functions import logarithm
+from Main.foreign_program.Diverse_Functions import distance_between_matrices
 
-from Subset_construction import set_of_intervals_construction
+from Main.foreign_program.Subset_construction import set_of_intervals_construction
 
-from Matrix_Construction_and_Modification import standard_distance_from_pi_qew_tree
+from Main.foreign_program.Matrix_Construction_and_Modification import standard_distance_from_pi_qew_tree
 
 
 def lattice_inf(tree_1, tree_2, points):

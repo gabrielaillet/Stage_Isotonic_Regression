@@ -48,10 +48,10 @@ distance_vartan()
 
 import random
 
-from Program.Diverse_Functions import suppression_of_identical_lines
+from Main.foreign_program.Diverse_Functions import suppression_of_identical_lines
 
-from Program.basic_fonctions_for_PQ_trees import update_father_and_leaf_sets
-from Program.basic_fonctions_for_PQ_trees import depth
+from Main.foreign_program.basic_fonctions_for_PQ_trees import update_father_and_leaf_sets
+from Main.foreign_program.basic_fonctions_for_PQ_trees import depth
 
 PORQ = 'Pnode_or_Qnode'  # the possible values are:
 P_NODE = 'P_node'
