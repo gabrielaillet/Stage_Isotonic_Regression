@@ -58,12 +58,4 @@ def make_isotonic_regression_for_l2(matrix_of_distance, pi_qwe_tree, plot_result
                                         list_tuple_with_nb_of_vertices_and_result_of_isotonic_regression)
 
 
-distance = [[0, 1, 1, 1, 3],
-            [1, 0, 1, 1, 3],
-            [1, 1, 0, 1, 2],
-            [1, 1, 1, 0, 3],
-            [3, 3, 2, 3, 0]]
 
-pi_qwe_list_tree = [P_NODE, [Q_NODE, [0], [P_NODE, [1], [2]], [3]], [4]]
-
-print(make_isotonic_regression_for_l2(distance, pi_qwe_list_tree, plot_result=True))

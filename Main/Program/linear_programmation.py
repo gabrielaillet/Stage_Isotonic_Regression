@@ -1,18 +1,17 @@
 __author__ = 'Gabriel'
 
-from Main.foreign_program.PQ_Tree_To_Graph_Transformation import from_pi_qew_tree_to_basic_graph_with_position_and_weight, \
-    taking_only_coordinates
+from Main.foreign_program.PQ_Tree_To_Graph_Transformation import \
+    from_pi_qew_tree_to_basic_graph_with_position_and_weight, taking_only_coordinates
 from Main.foreign_program.Constant import TYPE, P_NODE, Q_NODE, LEAF, KEY, NEIGHBORS, REPRESENTS, POINTS
 
 from scipy.optimize import linprog
-from math import ceil,floor
+from math import ceil, floor
 import numpy as np
 
 
 def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qwe_list, distance_matrix):
-    graph_to_use, position_vector, weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,
-                                                                                                        distance_matrix,
-                                                                                                            norme=1)
+    graph_to_use, position_vector, \
+    weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,distance_matrix, norme=1)
     edge_list = creat_tuple_of_edges(graph_to_use)
     position_vector = taking_only_coordinates(position_vector)
     weight_vector = taking_only_coordinates(weight_vector)
@@ -35,9 +34,8 @@ def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(pi_qwe_lis
 
 
 def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_list, distance_to_use):
-    graph_to_use, position_vector, weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list,
-                                                                                                        distance_to_use,
-                                                                                                            norme='inf')
+    graph_to_use, position_vector, \
+    weight_vector = from_pi_qew_tree_to_basic_graph_with_position_and_weight(pi_qwe_list, distance_to_use,norme='inf')
     edge_list = creat_tuple_of_edges(graph_to_use)
     position_vector = taking_only_coordinates(position_vector)
     weight_vector = taking_only_coordinates(weight_vector)
@@ -55,7 +53,8 @@ def creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(pi_qwe_l
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][1] - 1] = 1
         matrix[2 * len_of_vector + index_of_height][edge_list[index_of_height][0] - 1] = -1
 
-    return matrix, creat_vector_c_for_l_inf(len(weight_vector)), creat_vector_inequality(position_vector, len(edge_list))
+    return matrix, creat_vector_c_for_l_inf(len(weight_vector)), creat_vector_inequality(position_vector,
+                                                                                         len(edge_list))
 
 
 def creat_tuple_of_edges(graph_to_use, current_list=None):
@@ -127,11 +126,8 @@ def modification_of_the_matrix_of_distance(vector_to_change_value, distance_to_u
     return robinson_dissimilarity
 
 
-
-
-def make_isotonic_for_l_1(list, distance, print_matrix = True):
-
-    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance,1)[0]
+def make_isotonic_for_l_1(list, distance, print_matrix=True):
+    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance, 1)[0]
     A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_1(list, distance)
     res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
     if print_matrix == True:
@@ -140,9 +136,8 @@ def make_isotonic_for_l_1(list, distance, print_matrix = True):
         modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph)
 
 
-def make_isotonic_for_l_inf(list, distance, print_matrix = True):
-
-    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance,'inf')[0]
+def make_isotonic_for_l_inf(list, distance, print_matrix=True):
+    graph = from_pi_qew_tree_to_basic_graph_with_position_and_weight(list, distance, 'inf')[0]
     A_ineq, c, B_ineq = creat_matrix_of_inequality_vector_c_and_vector_inequality_for_l_inf(list, distance)
     res_no_bounds = linprog(c, A_ub=A_ineq, b_ub=B_ineq, method='interior-point')
     if print_matrix == True:
@@ -150,27 +145,30 @@ def make_isotonic_for_l_inf(list, distance, print_matrix = True):
     else:
         modification_of_the_matrix_of_distance(res_no_bounds['x'], distance, graph)
 
+
 def make_round(value):
     ceiling = ceil(value) - value
     if ceiling <= 0.5:
-        return  ceil(value)
+        return ceil(value)
     else:
-        return  floor(value)
+        return floor(value)
+
 
 def make_round_on_matrix(matrix):
-
-    for row_index in range (len(matrix)):
-        for value_index in range (len(matrix[row_index])):
+    for row_index in range(len(matrix)):
+        for value_index in range(len(matrix[row_index])):
             matrix[row_index][value_index] = make_round(matrix[row_index][value_index])
+
 
 def change_format_of_pi_qwe_list(list1):
     list_to_return = list1
     for index in range(len(list_to_return)):
-        if  (type(list_to_return[index]) == list):
+        if (type(list_to_return[index]) == list):
             list_to_return[index] = change_format_of_pi_qwe_list(list_to_return[index])
-        if  (type(list_to_return[index]) != str) and (type(list_to_return[index]) != list):
+        if (type(list_to_return[index]) != str) and (type(list_to_return[index]) != list):
             list_to_return[index] = [list_to_return[index]]
     return list_to_return
+
 
 def print_matrix(matrix):
     print('\n')

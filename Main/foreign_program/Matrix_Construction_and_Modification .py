@@ -3,6 +3,26 @@ __author__ = 'pascal'
 """
 Contains the functions:
 
+geographic_distance(nb_points, breadth, approximation, confusion):
+    Given the 4 parameters "nb_points", "breadth", "approximation" and "confusion", 
+    Returns a couple ("distance", "pi_qew_tree") on "nb_points" points
+    Works as follows :
+        1 : randomly generates "nb_points" points in a square x_max X y_max, where
+                x_max = 10 X "nb_points"
+                y_max = x_max X "breadth" / 100
+        2 : builds the L_1 distance between these points
+            divides this distance by "approximation" and round it.
+            the result of this is "distance"
+        3 : builds the PQ-tree "pi_qew_tree" that follows the x-order of the points. 
+            the root of "pi_qe_tree" is a Q-node
+            if a consecutive set of points dwells on an x-interval smaller than "confusion" separated from other points
+                by more than "confusion", then these points are grouped under a P-node. So, if "confusion" is very 
+                small or great, "pi_qew_tree" is flat. "confusion" = 10-15 seems to create the greatest number of 
+                P-nodes.
+    If "breadth" is small, "distance" is close to be Robinson and "pi_qew_tree" nearly represents its compatible 
+            permutations
+
+
 add_uniform_noise(distance, noise_value)
 add_non_uniform_noise(distance, percent_of_changed, noise_value)
     these functions add noise to the matrix "distance"
@@ -47,8 +67,10 @@ distance_vartan()
 """
 
 import random
+import math
 
 from Main.foreign_program.Diverse_Functions import suppression_of_identical_lines
+from Main.foreign_program.Diverse_Functions import sort_indices_by_values
 
 from Main.foreign_program.basic_fonctions_for_PQ_trees import update_father_and_leaf_sets
 from Main.foreign_program.basic_fonctions_for_PQ_trees import depth
@@ -65,6 +87,86 @@ GD_FRERE = 'great_brother'
 PTI_FRERE = 'little_brother'
 CADET = 'youngest_son'
 AINE = 'oldest_son'
+
+########################################################################################################################
+
+
+def geographic_distance(nb_points, breadth, approximation, confusion):
+    the_points = geographic_point_generation(nb_points, breadth)
+    distance = geographic_distance_construction(the_points, approximation)
+    pi_qew_tree = geographic_pi_qew_tree_construction(the_points, confusion)
+    return distance, pi_qew_tree
+
+
+def geographic_pi_qew_tree_construction(the_points, confusion):
+    nb = len(the_points)
+    x_values = [point[0] for point in the_points]
+    indices = list(range(nb))
+    sort_indices_by_values(indices, x_values)
+    indices = geographic_points_repartition(indices, x_values, nb, confusion)
+    return concrete_pi_qew_tree_construction(indices)
+
+
+def concrete_pi_qew_tree_construction(indices):
+    result = [Q_NODE]
+    for index in indices:
+        if type(index) is list:
+            result.append([P_NODE] + index)
+        else:
+            result.append(index)
+    return result
+
+
+def geographic_points_repartition(indices, x_values, nb, confusion):
+    holes_indices = hole_indices_construction(x_values, nb, confusion)
+    if len(holes_indices) == 1:
+        return indices
+    result = []
+    holes_indices.append(nb)
+    for i in range(1, len(holes_indices)):
+        zone_top, zone_bottom = holes_indices[i] - 1, holes_indices[i - 1]
+        if zone_top != zone_bottom and x_values[zone_top] - x_values[zone_bottom] < confusion:
+            result.append(indices[zone_bottom: zone_top + 1])
+        else:
+            result.extend(indices[zone_bottom: zone_top + 1])
+    return result
+
+
+def hole_indices_construction(x_values, nb, confusion):
+    result = [0]
+    for index in range(1, nb):
+        if x_values[index] - x_values[index - 1] > confusion:
+            result.append(index)
+    return result
+
+
+def geographic_distance_construction(the_points, approximation):
+    nb_pt = len(the_points)
+    the_distance = []
+    for i in range(nb_pt):
+        line = []
+        for j in range(nb_pt):
+            line.append(approximate_l1_distance(the_points[i], the_points[j], approximation))
+        the_distance.append(line)
+    return the_distance
+
+
+def approximate_l1_distance(pt_1, pt_2, approximation):
+    if pt_1 == pt_2:
+        return 0
+    l1_distance = math.fabs(pt_1[0] - pt_2[0]) + math.fabs(pt_1[1] - pt_2[1])
+    return 1 + math.floor(l1_distance / approximation)
+
+
+def geographic_point_generation(nb_points, breadth):
+    x_max = 10 * nb_points
+    y_max = math.ceil(nb_points * breadth / 10)
+    the_points = []
+    for i in range(nb_points):
+        the_points.append([random.randrange(x_max), random.randrange(y_max)])
+    return the_points
+
+# ############################################# FIN geographic_distance ############################################## #
 
 
 def add_uniform_noise(distance, noise_value):
