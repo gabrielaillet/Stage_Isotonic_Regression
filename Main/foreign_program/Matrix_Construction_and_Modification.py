@@ -161,10 +161,10 @@ def approximate_l1_distance(pt_1, pt_2, approximation):
 def geographic_point_generation(nb_points, breadth):
     x_max = 10 * nb_points
     y_max = math.ceil(nb_points * breadth / 10)
-    the_points = []
-    for i in range(nb_points):
-        the_points.append([random.randrange(x_max), random.randrange(y_max)])
-    return the_points
+    the_points = set([])
+    while len(the_points) < nb_points:
+        the_points.add((random.randrange(x_max), random.randrange(y_max)))
+    return list(the_points)
 
 # ############################################# FIN geographic_distance ############################################## #
 

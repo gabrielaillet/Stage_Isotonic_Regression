@@ -1,10 +1,10 @@
 __author__ = 'pascal and Gabriel'
 
 from statistics import median
-from Main.foreign_program.Constant import *
+from Main.Program.Constant import *
 """
 The aim of this module is, given a dissimilarity "distance", to provide tools to transform a given PQ-tree
-    (given as a 'PQ-list' "pi_qew_list") into a graph on which ISOTONIC REGRESSION will give the best Robinson
+    (given as a 'PQ-pi_qwe_list' "pi_qew_list") into a graph on which ISOTONIC REGRESSION will give the best Robinson
     approximation of "distance" among the Robinson dissimilarities admitting "pi_qew_list" as PQ-tree.
 Contains the functions :
 
@@ -14,14 +14,14 @@ Contains the functions :
         returns an acyclic digraph on which the ISOTONIC REGRESSION gives the Robinson dissimilarity
         admitting "pi_qew_list" as PQ-tree which is the closest to "distance".
         - INPUT:
-            The PQ-tree is given as a list
+            The PQ-tree is given as a pi_qwe_list
                 e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
-            The dissimilarity as a matrix, i.e. a list of list.
+            The dissimilarity as a matrix, i.e. a pi_qwe_list of pi_qwe_list.
         - OUTPUT:
         Each node x of the result (the digraph) is given as a dictionary whose keys (and elements) are:
             KEY ("key) is a number (settled by global variable NB in the code), different for each node.
-            NEIGHBORS ("neighbors") are the neighbors of x (nodes y such that x --> y is an arc), given as a list
-            POINTS ("points") is the list of the leaves (of the PQ-tree) under x (for internal use only)
+            NEIGHBORS ("neighbors") are the neighbors of x (nodes y such that x --> y is an arc), given as a pi_qwe_list
+            POINTS ("points") is the pi_qwe_list of the leaves (of the PQ-tree) under x (for internal use only)
             AVERAGE_DISTANCE ("average_dist") calculated by the function "average_distance",
                 is a quintuple (dist_sum, dist_nb, dist_max, dist_min, median) where
                     - dist_sum is the sum of the distances involved by node x
@@ -51,14 +51,14 @@ Contains the functions :
 
     "from_basic_graph_to_adjacency_list"
         which, given a graph "basic_graph", built by function from_pi_qew_tree_to_basic_graph, constructs an
-        adjacency list which represents the same graph.
-        The result ("adjacency_list") is given as a list of n+1 elements, where n is the number of vertices
+        adjacency pi_qwe_list which represents the same graph.
+        The result ("adjacency_list") is given as a pi_qwe_list of n+1 elements, where n is the number of vertices
         - REMARKS:
             - The vertices are numbered from 1 to n
             - The first element ("adjacency_list[0]") is not used
             - Each element of "adjacency_list" is a dictionary with two keys :
                 - AVERAGE_DISTANCE ("average_dist") is the same as in "basic_graph"
-                - NEIGHBORS ("neighbors") is the list of the neighbors of the vertex
+                - NEIGHBORS ("neighbors") is the pi_qwe_list of the neighbors of the vertex
             - In order to construct the approximate Robinson dissimilarity, "basic_graph" is NECESSARY.
         - This function uses the function (from this module):
             - recursive_from_basic_graph_to_adjacency_list
@@ -74,16 +74,16 @@ Contains the functions :
         admitting "pi_qew_list" as PQ-tree which is the closest to "distance" with the position vector necessary to 
         make an isotonic regression.
         - INPUT:
-            The PQ-tree is given as a list
+            The PQ-tree is given as a pi_qwe_list
                 e.g. ['Q_node', ['P_node', [0], [1]], [2], [3]]
-            The dissimilarity as a matrix, i.e. a list of list.
+            The dissimilarity as a matrix, i.e. a pi_qwe_list of pi_qwe_list.
             The norm witch we want to make the isotonic regression by default norm = 1 (can take 3 value {1,2,'inf'})
             
          - OUTPUT:
         -Each node x of the result (the digraph) is given as a dictionary whose keys (and elements) are:
             KEY ("key) is a number (settled by global variable NB in the code), different for each node.
-            NEIGHBORS ("neighbors") are the neighbors of x (nodes y such that x --> y is an arc), given as a list
-            POINTS ("points") is the list of the leaves (of the PQ-tree) under x (for internal use only)
+            NEIGHBORS ("neighbors") are the neighbors of x (nodes y such that x --> y is an arc), given as a pi_qwe_list
+            POINTS ("points") is the pi_qwe_list of the leaves (of the PQ-tree) under x (for internal use only)
             AVERAGE_DISTANCE ("average_dist") calculated by the function "average_distance",
                 is a quintuple (dist_sum, dist_nb, dist_max) where
                     - dist_sum is the sum of the distances involved by node x
@@ -96,7 +96,7 @@ Contains the functions :
             TYPE ("type") indicates if the node (of the graph) comes from a P_node, a Q-node or a Leaf
             REPRESENTS ("represents") indicates, for a vertex x coming from a Q-node, the two (tree) nodes whose
                 distance is represented by x. this will be used to construct the approximate Robinson distance.
-        -position is a list of tuple with the Key of vertices and the actual position of that vertices
+        -position is a pi_qwe_list of tuple with the Key of vertices and the actual position of that vertices
         - This function uses the functions (from this module):
             - from_pi_node_to_basic_graph_with_position
             - from_qew_node_to_basic_graph_with_position
@@ -109,16 +109,16 @@ Contains the functions :
         admitting "pi_qew_list" as PQ-tree which is the closest to "distance" with the position vector necessary to 
         make an isotonic regression.
         - INPUT:
-            The PQ-tree is given as a list
+            The PQ-tree is given as a pi_qwe_list
                 e.g. ['Q_node', ['P_node', [0], [1]], [2], [3]]
-            The dissimilarity as a matrix, i.e. a list of list.
+            The dissimilarity as a matrix, i.e. a pi_qwe_list of pi_qwe_list.
             The norm witch we want to make the isotonic regression by default norm = 1 (can take 3 value {1,2,'inf'})
             
          - OUTPUT:
         -Each node x of the result (the digraph) is given as a dictionary whose keys (and elements) are:
             KEY ("key) is a number (settled by global variable NB in the code), different for each node.
-            NEIGHBORS ("neighbors") are the neighbors of x (nodes y such that x --> y is an arc), given as a list
-            POINTS ("points") is the list of the leaves (of the PQ-tree) under x (for internal use only)
+            NEIGHBORS ("neighbors") are the neighbors of x (nodes y such that x --> y is an arc), given as a pi_qwe_list
+            POINTS ("points") is the pi_qwe_list of the leaves (of the PQ-tree) under x (for internal use only)
             AVERAGE_DISTANCE ("average_dist") calculated by the function "average_distance",
                 is a quintuple (dist_sum, dist_nb, dist_max) where
                     - dist_sum is the sum of the distances involved by node x
@@ -131,7 +131,7 @@ Contains the functions :
             TYPE ("type") indicates if the node (of the graph) comes from a P_node, a Q-node or a Leaf
             REPRESENTS ("represents") indicates, for a vertex x coming from a Q-node, the two (tree) nodes whose
                 distance is represented by x. this will be used to construct the approximate Robinson distance.
-        -weight is a list of tuple with the Key of vertices and the actual weight of that vertices
+        -weight is a pi_qwe_list of tuple with the Key of vertices and the actual weight of that vertices
         - This function uses the functions (from this module):
             - from_pi_node_to_basic_graph_with_weight
             - from_qew_node_to_basic_graph_with_weight

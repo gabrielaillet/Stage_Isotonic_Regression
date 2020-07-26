@@ -1,0 +1,95 @@
+L1 norm:
+
+cons : can have error of isotonic regression due to the "mean" of l1 norm.
+
+Exemple of error of regression:
+
+p_q_list = ['Q_node', ['P_node', [0], [1], [2]], [3], [4]]
+
+initial distance:
+
+[[0, 2, 2, 4, 4],
+[2, 0, 2, 4, 4],
+[2, 2, 0, 4, 4],
+[4, 4, 4, 0, 4],
+[4, 4, 4, 4, 0]]
+
+Noisy distance :
+
+[[0, 2, 3, 4, 4],
+[2, 0, 3, 4, 4],
+[3, 3, 0, 4, 4],
+[4, 4, 4, 0, 4],
+[4, 4, 4, 4, 0]] 
+
+final distance after isotonic regression :
+
+[[0, 3, 3, 4, 4],
+[3, 0, 3, 4, 4],
+[3, 3, 0, 4, 4],
+[4, 4, 4, 0, 4],
+[4, 4, 4, 4, 0]] 
+
+the distance between the first distance and the noisi one is 4
+
+the distance between the first distance and the isotonic one is 6
+
+this example shows that the l1 norme can't be use in any circonstance. This cons is more and more frequent the less leaf there is to each node 
+
+
+
+
+l_2 norm:
+
+cons :
+
+the time to make the isotonic regression is much higher than the two other due to the minimize function from scipy.optimize,
+
+due to that the number of test for each categorie of lenght have been drasticaly lower to prevent a waste of time.
+ 
+More over the incertanty of rounding make it difficulte to test if the isotonic regression was successful or not.
+
+Example of that issue:
+
+p_q_list = ['P_node', [4], [1], [2], ['P_node', [3], [0]]]
+
+initial distance:
+
+[[0, 4, 4, 2, 4],
+[4, 0, 4, 4, 4],
+[4, 4, 0, 4, 4],
+[2, 4, 4, 0, 4],
+[4, 4, 4, 4, 0]]
+
+Noisy distance :
+
+[[0, 4, 4, 2, 4],
+[4, 0, 4, 4, 4],
+[4, 4, 0, 4, 4],
+[2, 4, 4, 0, 4],
+[4, 4, 4, 4, 0]]
+
+
+final distance after isotonic regression :
+
+[[0, 3.999999991442782, 3.999999991442782, 2.0000227696164323, 3.999999991442782],
+[3.999999991442782, 0, 3.999999991442782, 3.999999991442782, 3.999999991442782],
+[3.999999991442782, 3.999999991442782, 0, 3.999999991442782, 3.999999991442782],
+[2.0000227696164323, 3.999999991442782, 3.999999991442782, 0, 3.999999991442782],
+[3.999999991442782, 3.999999991442782, 3.999999991442782, 3.999999991442782, 0]]
+
+the distance between the first distance and the "noisy" one is 0
+
+the distance between the first distance and the isotonic one is not 0
+
+We cannot use the round function with the l_2 norm to prevent such a case because we do not obtain round numbers with a square root.
+
+to prevent that we use a while loop that eliminate the case where the noise distance is the same as the initial distance, this cause time as well
+
+
+
+
+
+l_inf norm:
+
+Have found nothing that proove that the l_inf norm is reliable in all circumstance but the test seems hopful.

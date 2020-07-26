@@ -9,8 +9,8 @@ logarithm(number, basis)
     works on 'very big' numbers.
 
 put_off_singletons
-    given list of lists (or sets, or tuples) "set_of_lists",
-    returns the list of lists (or sets, or tuples) of "set_of_lists" of length > 1
+    given pi_qwe_list of lists (or sets, or tuples) "set_of_lists",
+    returns the pi_qwe_list of lists (or sets, or tuples) of "set_of_lists" of length > 1
 
 sort_indices_by_values(indices, values)
     given two lists of same length 'n' "indices" and "values", sort, in exactly the same way, the two lists
@@ -18,11 +18,11 @@ sort_indices_by_values(indices, values)
     works on site and in time O(n log(n)) -- is an implementation of heap-sort
 
 sort_the_end_by_values(indices, values):
-    identical to the previous function, except that the list "values" is sorted from the index 1.
+    identical to the previous function, except that the pi_qwe_list "values" is sorted from the index 1.
     indices[0] and values[0] are neither considered nor changed.
 
 reverse_end_of_list(the_list):
-    given a list "the_list", reverse, on site, the_list[1:]
+    given a pi_qwe_list "the_list", reverse, on site, the_list[1:]
 
 list_fusion(list_1, list_2)
     given two ordered lists "list_1" and "list_2", returns their fusion
@@ -44,11 +44,11 @@ build_random_matrix(nb_lines, nb_columns, max_value):
     returns a random matrix on {0,.., "max_value"} with "nb_lines" lines, "nb_columns" columns
 
 transforms_vector_into_zero_one(vector)
-    Given a list of positive integers vector.
+    Given a pi_qwe_list of positive integers vector.
     Transform each value > 0 into 1
 
 sorted_union(set_of_sets)
-    Given a set of sets "set_of_sets", which is a list (or tuple or set) of lists (or tuples or sets),
+    Given a set of sets "set_of_sets", which is a pi_qwe_list (or tuple or set) of lists (or tuples or sets),
     Return the union of these sets as a sorted tuple
 
 point_suppression(removed_points, the_set)

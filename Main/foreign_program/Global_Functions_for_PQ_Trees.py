@@ -23,7 +23,7 @@ lattice_sup(tree_1, tree_2, points)
 
 lattice_distance_between_pi_qew_trees(tree_1, tree_2, points)
     "tree_1" and "tree_2" are two PQ-trees defined on the same underlying set "points" (= [0, .. n-1]).
-    Returns a list of length 2 which contains two "distances" between tree_1 and tree_2.
+    Returns a pi_qwe_list of length 2 which contains two "distances" between tree_1 and tree_2.
     These distances are based on the lattice structure of teh set of all the PQ-trees on "points"
     See the code for the definition of these distances.
     USES FUNCTIONS "logarithm" AND "number_of_permutations_represented_by" FROM LIBRARY "Diverse_Functions"
@@ -33,7 +33,7 @@ lattice_distance_between_pi_qew_trees(tree_1, tree_2, points)
 
 matrix_distance_between_pi_qew_trees(tree_1, tree_2, points)
     "tree_1" and "tree_2" are two PQ-trees defined on the same underlying set "points" (= [0, .. n-1]).
-    Returns a list of length 3 which contains three "distances" between tree_1 and tree_2.
+    Returns a pi_qwe_list of length 3 which contains three "distances" between tree_1 and tree_2.
     These distances are based on comparison between 'standard' Robinson matrices having tree_1 and tree_2
     as PQ-trees (in order : L-infinite, L-1 and L-2).
     USES FUNCTION "standard_distance_from_pi_qew_tree" FROM LIBRARY "Matrix_Construction_and_Modification"

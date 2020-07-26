@@ -10,7 +10,7 @@ characteristic_subset_set_of(tree)
 
 characteristic_subset_list_of(tree):
     used by characteristic_subset_set_of(tree).
-    gives the result as a list. characteristic_subset_set_of(tree) gives it as a set.
+    gives the result as a pi_qwe_list. characteristic_subset_set_of(tree) gives it as a set.
     USES THE FUNCTIONS "put_off_singletons" and "list_fusion" FROM THE LIBRARY "Diverse_Functions"
 
 minimal_subset_set_of(tree)
@@ -30,7 +30,7 @@ number_of_sons(tree)
 depth(tree)
 
 ordered_course(tree, vector)
-    Given a PQ-Tree "tree", add the ordered list of its leaves at the end of "vector"
+    Given a PQ-Tree "tree", add the ordered pi_qwe_list of its leaves at the end of "vector"
     Should be used with "vector" = []. In this case, at the end, "vector" is one of the permutations
     represented by "tree".
 

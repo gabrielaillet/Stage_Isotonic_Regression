@@ -4,11 +4,11 @@ __author__ = 'pascal'
 Contains the functions:
 
 ball_set(distance)
-    Given a dissimilarity "distance" (on a set X (= {0,.. n-1})), returns a list made of all the balls of "distance"
+    Given a dissimilarity "distance" (on a set X (= {0,.. n-1})), returns a pi_qwe_list made of all the balls of "distance"
 
 ball_set_centered(line)
     Given a vector "line" (which represents distances of all elements of a set X to an element x of X), returns
-    a list made of all the balls centered in x
+    a pi_qwe_list made of all the balls centered in x
 
 
 ranked_balls_construction(distance, rank)
@@ -18,7 +18,7 @@ ranked_balls_construction(distance, rank)
 
 
 two_ball_set(distance)
-    Given a dissimilarity "distance" (on a set X (= {0,.. n-1})), returns a list made of all the two-balls of "distance"
+    Given a dissimilarity "distance" (on a set X (= {0,.. n-1})), returns a pi_qwe_list made of all the two-balls of "distance"
 
 two_ball(pt_a, pt_b, distance)
     Given a dissimilarity "distance" (on a set X (= {0,.. n-1})) and "pt_a" and "pt_b" in X, returns the two-ball of
@@ -27,7 +27,7 @@ two_ball(pt_a, pt_b, distance)
 
 
 delta_set(distance)
-    Given a dissimilarity "distance", returns a list made of all the delta of "distance"
+    Given a dissimilarity "distance", returns a pi_qwe_list made of all the delta of "distance"
 
 delta(pt_x, pt_y, distance)
     Given a dissimilarity "distance" on a set X (= {0,.. n-1}) and "pt_x" and "pt_y" in X, returns the delta of
@@ -39,12 +39,12 @@ delta(pt_x, pt_y, distance)
 
 set_of_intervals_construction(points, nb_of_intervals)
     Given a set "points" (= {0, .. , n-1}) and a number " nb_intervals",
-    Returns a list of "nb_of_intervals" intervals on "points"
+    Returns a pi_qwe_list of "nb_of_intervals" intervals on "points"
 
 
 set_of_noisy_intervals(points, nb_of_intervals)
     Given a set "points" (= {0, .. , n-1}) and a number " nb_intervals",
-    Returns a list of "nb_of_intervals" 'noisy' intervals on "points"
+    Returns a pi_qwe_list of "nb_of_intervals" 'noisy' intervals on "points"
 
 noisy_interval(nb_points), first_point, end_point, slope_before, slope_after)
     Given the set {0, .. , "nb_points" -1})
@@ -60,7 +60,7 @@ noisy_interval(nb_points), first_point, end_point, slope_before, slope_after)
 from_presence_matrix_to_subsets(matrix)
     Given a 'presence matrix' "matrix" (i.e. a matrix where lines are indexed by 'objects' and columns by 'sites';
     on line 'i' and column 'j' is the number of objects 'i' found on site 'i').
-    Returns a set of sets, represented as a list "set_of_subsets" of lists, with "set_of_subsets"[i] is the list of 'j'
+    Returns a set of sets, represented as a pi_qwe_list "set_of_subsets" of lists, with "set_of_subsets"[i] is the pi_qwe_list of 'j'
     such that object 'i' has been fund on site 'j'.
 """
 

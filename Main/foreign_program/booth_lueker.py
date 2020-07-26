@@ -15,13 +15,13 @@ Contains the functions :
 
 booth_and_lueker(set_of_subsets, points, randomized)
     given a set "points" (= {0,.. n-1}, and a set of subsets of "points" "set_oo_subsets", and a boolean "randomized"
-    returns a list [tree, accepted_or_not[0], accepted_or_not[1], accepted_sets] made of:
+    returns a pi_qwe_list [tree, accepted_or_not[0], accepted_or_not[1], accepted_sets] made of:
         - if possible : a PQ-tree "tree" which represents all the permutations of "points"
         such that each element of "set_of_subsets" is an interval.
         If this is not possible, "tree" is None.
         - the number of 'accepted' subsets ("accepted_or_not[0]"), i.e. which are intervals
         - the number of 'refused' subsets ("accepted_or_not[1]"). if "tree" is not None, this number is 0
-        - the list of the ranks of accepted sets (in "set_of_subsets"): "accepted_sets"
+        - the pi_qwe_list of the ranks of accepted sets (in "set_of_subsets"): "accepted_sets"
     If "randomized" is True, the sets in "set_of_subsets" are considered in random order.
 
 update_tree(tree, subset, nb_of_points, nb_accepted_subsets, nb_refused_subsets, subset_characteristic)

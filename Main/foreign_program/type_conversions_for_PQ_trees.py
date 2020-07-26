@@ -14,14 +14,14 @@ from_pi_qew_string_to_list(pi_qew_tree_as_a_string):
 
     Given a string "pi_qew_tree_as_a_string" (which represents a PQ-tree)
             e.g. '{P_{Q_[9][3][1]}{P_[0][6][7]{P_[8][5]{P_[4][2]}}}}'
-    Returns a list representation of this PQ-tree,
+    Returns a pi_qwe_list representation of this PQ-tree,
             e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
 
 
 from_pi_qew_list_to_graphics(pi_qew_tree_as_a_list):
     This function was written in 2015 by Soufiane MALLEM during his L3-MPCI internship.
 
-    Given a list or a tuple "pi_qew_tree_as_a_list" (which represents a PQ-tree),
+    Given a pi_qwe_list or a tuple "pi_qew_tree_as_a_list" (which represents a PQ-tree),
             e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
               or ('P_node', ('Q_node', 9, 3, 1), ('P_node', 0, 6, 7, ('P_node', 8, 5, ('P_node', 4, 2))))
     Draw this PQ-tree
@@ -30,7 +30,7 @@ from_pi_qew_list_to_graphics(pi_qew_tree_as_a_list):
 
 
 from_pi_qew_list_to_tree(pi_qew_tree_as_a_list):
-    Given a list or a tuple "pi_qew_tree_as_a_list" (which represents a PQ-tree),
+    Given a pi_qwe_list or a tuple "pi_qew_tree_as_a_list" (which represents a PQ-tree),
             e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
               or ('P_node', ('Q_node', 9, 3, 1), ('P_node', 0, 6, 7, ('P_node', 8, 5, ('P_node', 4, 2))))
     Returns this PQ-tree, as described below.
@@ -38,12 +38,12 @@ from_pi_qew_list_to_tree(pi_qew_tree_as_a_list):
 
 
 from_pi_qew_tree_to_list(tree):
-    Given a PQ-tree "tree", returns a list which represents it,
+    Given a PQ-tree "tree", returns a pi_qwe_list which represents it,
             e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
 
 
 from_pi_qew_list_to_string(pi_qew_list, string=''):
-    Given a list or a tuple "pi_qew_tree_as_a_list" (which represents a PQ-tree),
+    Given a pi_qwe_list or a tuple "pi_qew_tree_as_a_list" (which represents a PQ-tree),
             e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
               or ('P_node', ('Q_node', 9, 3, 1), ('P_node', 0, 6, 7, ('P_node', 8, 5, ('P_node', 4, 2))))
     and a string "string".
@@ -53,7 +53,7 @@ from_pi_qew_list_to_string(pi_qew_list, string=''):
 
 
 from_pi_qew_list_to_tuple(pi_qew_list):
-    Given a list "pi_qew_list" (which represents a PQ-tree)
+    Given a pi_qwe_list "pi_qew_list" (which represents a PQ-tree)
             e.g. ['P_node', ['Q_node', 9, 3, 1], ['P_node', 0, 6, 7, ['P_node', 8, 5, ['P_node', 4, 2]]]]
     returns a tuple that represent the same PQ-Tree,
             e.g. ('P_node', ('Q_node', 9, 3, 1), ('P_node', 0, 6, 7, ('P_node', 8, 5, ('P_node', 4, 2))))
