@@ -81,7 +81,7 @@ make_isotonic_regression_for_l2(pi_qwe_list, distance_matrix, print_matrix_bool=
         - minimize from scipy.optimize
 '''
 
-from Main.Program.data import Data, taking_only_coordinates
+from Main.Program.facade import Data, taking_only_coordinates
 from scipy.optimize import linprog, minimize, LinearConstraint
 from math import ceil, floor
 import numpy as np

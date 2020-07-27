@@ -1,7 +1,7 @@
 import unittest
 
 from Main.foreign_program.PQ_Tree_To_Graph_Transformation import taking_only_coordinates
-from Main.Program.data import Data
+from Main.Program.facade import Data
 
 
 class Test_Q_Tree_To_Graph_Trivial(unittest.TestCase):
